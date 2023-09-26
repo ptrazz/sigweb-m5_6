@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+ integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+ crossorigin=""></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"crossorigin="anonymous">
+<title>Leaflet Web Map Temanggung</title>
+
+<style>
+    #map {
+        height: calc(100vh - 60px);
+    }
+
+</style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+    <a class="nav-link" href="#">Home <span class="sr-only">(current)
+    </span></a>
+    </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0"> <button class="btn btn-outline-success my-2 my-sm-0">Kabupaten Temanggung</button> </form>
+    </div>
+    </nav>
+    <div id="map"></div>
+<script src="tmg.js"></script>
+<script>
+    var map = L.map('map',{center: [-7.256422034980396, 110.12195864418123], zoom: 11});
+
+    var esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA,USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS UserCommunity'}).addTo(map);
+    var carto = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>&copy; <a href="http://cartodb.com/attributions">CartoDB</a>',subdomains: 'abcd',maxZoom: 19});
+    var baseMaps = {"Citra Satelit": esri,"Peta Carto": carto};
+
+    var bansari = L.marker([-7.284416811181884, 110.05984448516018]).bindPopup('Bansari'),
+        bejen = L.marker([-7.118514360654104, 110.08465804153046]).bindPopup('Bejen'),
+        bulu = L.marker([-7.290769842561941, 110.13149273743231]).bindPopup('Bulu'),
+        candiroto = L.marker([-7.173553615070107, 110.06558417791064]).bindPopup('Candiroto');
+        gemawang = L.marker([-7.190779311023363, 110.1541114932536]).bindPopup('Gemawang'),
+        jumo = L.marker([-7.2281624117800085, 110.11075427791064]).bindPopup('Jumo'),
+        kaloran = L.marker([-7.268464526314743, 110.24274810859657]).bindPopup('Kaloran');
+        kandangan = L.marker([-7.257479463859996, 110.18521619325358]).bindPopup('Kandangan'),
+        kedu = L.marker([-7.278151500570819, 110.15764756441787]).bindPopup('Kedu'),
+        kledung = L.marker([-7.33723346477078, 110.0348259355821]).bindPopup('Kledung');
+        kranggan = L.marker([-7.3407067545658045, 110.21416313940068]).bindPopup('Kranggan'),
+        ngadirejo = L.marker([-7.236087954006822, 110.05586422208935]).bindPopup('Ngadirejo'),
+        parakan = L.marker([-7.280156920306282, 110.09963716441787]).bindPopup('Parakan');
+        pringsurat = L.marker([-7.357418350772556, 110.28803383558214]).bindPopup('Pringsurat');
+        selopampang = L.marker([-7.378734320258071, 110.17287684907491]).bindPopup('Selopampang'),
+        temanggung = L.marker([-7.318766643730625, 110.18399197976083]).bindPopup('Temanggung'),
+        tembarak = L.marker([-7.356482328801884, 110.18936476626808]).bindPopup('Tembarak');
+        tlogomulyo = L.marker([-7.334220117342986, 110.15483205092508]).bindPopup('Tlogomulyo'),
+        tretep = L.marker([-7.1724001753588755, 110.01079499390114]).bindPopup('Tretep'),
+        wonoboyo = L.marker([-7.199902837405396, 110.025258615345]).bindPopup('Wonoboyo');
+    var tmg = L.layerGroup([bansari, bejen, bulu, candiroto, gemawang, jumo, kaloran, kandangan, kedu, kledung, kranggan, ngadirejo, parakan , pringsurat, selopampang, temanggung, tembarak, tlogomulyo, tretep, wonoboyo]);
+    var overlayMaps = {"Temanggung": tmg};
+
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
+    L.geoJSON(tmggeojson,{style: function(feature) {switch (feature.properties.kecamatan) {case 'Bansari': return {color: "#ff9900"};case 'Bejen': return {color: "red"};case 'Bulu': return {color: "blue"};case 'Candiroto': return {color: "green"};case 'Gemawang': return {color: "magenta"}; case 'Jumo': return {color: "#ff9900"};case 'Kaloran': return {color: "red"};case 'Kandangan': return {color: "blue"};case 'Kedu': return {color: "green"};case 'Kledung': return {color: "magenta"}; case 'Kranggan': return {color: "#ff9900"};case 'Ngadirejo': return {color: "red"};case 'Parakan': return {color: "blue"};case 'Pringsurat': return {color: "green"};case 'Selompampang': return {color: "magenta"}; case 'Temanggung': return {color: "#ff9900"};case 'Tembarak': return {color: "red"};case 'Tlogomulyo': return {color: "blue"};case 'Tretep': return {color: "green"};case 'Wonoboyo': return {color: "magenta"};}},onEachFeature: function (feature, layer) {layer.bindPopup('Kode wilayah kecamatan adalah ' +'<strong>' +feature.properties.kode_dagri +'</strong>');}}).addTo(map);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"crossorigin="anonymous"></script>
+</body>
+</html>
