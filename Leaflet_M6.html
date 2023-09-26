@@ -40,7 +40,6 @@
 <script src="jogja2.js"></script>
 <script>
     var map = L.map('map',{center: [-7.79558, 110.36949], zoom: 15});
-    var lokasi = L.marker([-7.79558, 110.36949]).bindPopup('Lokasi Saya'),
 
     var esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA,USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS UserCommunity'}).addTo(map);
     var carto = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>&copy; <a href="http://cartodb.com/attributions">CartoDB</a>',subdomains: 'abcd',maxZoom: 19});
@@ -50,6 +49,7 @@
         sleman = L.marker([-7.768144452028461,110.40470123291016]).bindPopup('sleman'),
         kupro = L.marker([-7.813044768423498,110.37242889404297]).bindPopup('kupro'),
         mbantul = L.marker([-7.7994391205004225,110.33020019531249]).bindPopup('mbntl');
+    var lokasi = L.marker([-7.79558, 110.36949]).bindPopup('Lokasi Saya'),
     var jogja = L.layerGroup([gunkid, kupro, mbantul, sleman]);
     var overlayMaps = {"Jogja": jogja};
 
